@@ -42,14 +42,13 @@ SCAN_INTERVAL = timedelta(minutes=1)
 
 SUPPORT_GARDENA = (
     VacuumEntityFeature.BATTERY |
-    VacuumEntityFeature.PAUSE |
     VacuumEntityFeature.RETURN_HOME |
-    VacuumEntityFeature.SEND_COMMAND |
     VacuumEntityFeature.START |
     VacuumEntityFeature.STATE |
     VacuumEntityFeature.STOP
 )
-
+# VacuumEntityFeature.SEND_COMMAND |
+# VacuumEntityFeature.PAUSE |
 
 async def async_setup_entry(hass, config_entry, async_add_entities):
     """Set up the Gardena smart mower system."""
@@ -106,9 +105,9 @@ class GardenaSmartMower(StateVacuumEntity):
             _LOGGER.debug("Getting mower state")
             activity = self._device.activity
             _LOGGER.debug("Mower has activity %s", activity)
-            if activity == "PAUSED":
-                self._state = PAUSE
-            elif activity in [
+            #if activity == "PAUSED":
+            #   self._state = PAUSE
+            if activity in [
                 "OK_CUTTING",
                 "OK_CUTTING_TIMER_OVERRIDDEN",
                 "OK_LEAVING",
